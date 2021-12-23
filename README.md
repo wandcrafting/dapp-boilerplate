@@ -1,3 +1,8 @@
+[] subgraphs
+[] circuits
+[] ceramic streams
+[] L2 langs
+
 # Getting Frontend Started
 
 1. Run `yarn` to install dependencies.
