@@ -3,12 +3,18 @@ pragma solidity ^0.8.6;
 
 import "ds-test/test.sol";
 
-import "./template.sol";
+import "./Template.sol";
 
-contract templateTest is DSTest {
+contract TemplateTest is DSTest {
     Template template;
 
+    event logSuccess(string message);
+    
     function setUp() public {
         template = new Template();
+    }
+
+    function test_success() public {
+        emit logSuccess("Success");
     }
 }
