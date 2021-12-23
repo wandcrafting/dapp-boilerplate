@@ -1,46 +1,46 @@
 import { FC, useState } from "react";
 import { ethers } from "ethers";
-import { Erc20__factory } from "../contracts/types";
+//import { <contract__factory> } from "../contracts/types";
 
 const Index: FC = () => {
+  //set up provider and signer
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
   const [account, setAccount] = useState<string>();
-  const [tokenBalance, setTokenBalance] = useState<string>();
+  const [signer, setSigner] = useState<ethers.Signer>();
 
+  //set up provider and signer
   const connect = async () => {
     if (!window.ethereum?.request) {
       alert("MetaMask is not installed!");
       return;
     }
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    provider.on("network", (newNetwork, oldNetwork) => {
+      if (oldNetwork) {
+          window.location.reload();
+      }
+    });
+  
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-
+  
     setProvider(provider);
+    setSigner(provider.getSigner(accounts[0]));
     setAccount(accounts[0]);
   };
 
-  const getTokenBalance = async () => {
-    if (provider && account) {
-      const TOKEN_ADDR = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
-      const token = Erc20__factory.connect(TOKEN_ADDR, provider.getSigner());
+  // //create contract objects
+  // const contract_address = "<address>";
+  // const contract = <contract__factory>.connect(contract_address, signer);
 
-      const rawBalance = await token.balanceOf(account);
-      const decimals = await token.decimals();
 
-      const balance = ethers.utils.formatUnits(rawBalance, decimals);
-      setTokenBalance(balance);
-    }
-  };
 
   return (
     <>
       <button onClick={connect}>Connect</button>
       <p>Account: {account}</p>
-      <button onClick={getTokenBalance}>Get Token Balance</button>
-      <p>Token Balance: {tokenBalance}</p>
     </>
   );
 };
