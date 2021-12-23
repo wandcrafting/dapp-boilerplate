@@ -1,7 +1,7 @@
-[] subgraphs
-[] circuits
-[] ceramic streams
-[] L2 langs
+- [ ] Subgraphs
+- [ ] Circuits
+- [ ] Ceramic Streams
+- [ ] L2 Langs
 
 # Getting Frontend Started
 
