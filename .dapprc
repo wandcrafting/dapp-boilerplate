@@ -1,0 +1,6 @@
+# Make dependencies available
+export DAPP_REMAPPINGS=$(cat remappings.txt) // allows dapptools to read imports such as "ds-test/test.sol", correctly
+
+export DAPP_SOLC_VERSION=0.8.6
+export DAPP_TEST_VERBOSITY=1
+export DAPP_SRC=./contracts // dapptools will search for the contracts folder in the stead of the src folder
